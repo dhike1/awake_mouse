@@ -1,0 +1,26 @@
+#!/bin/bash
+# copy the folder to your place
+# change the dirs in n_mysetting
+# change the setting in n_command
+# save 
+# run the n_command with "sh n_command"
+
+
+cd ${filen}${mouse_num}.${proname}.results/
+3dcalc -a censor_${filen}${mouse_num}.${proname}_combined_2.1D -b errts.${filen}${mouse_num}.${proname}.tproject+orig -expr '(a*b)' -prefix ${savefile}${filen}${mouse_num}.ave_data
+
+cp censor_${filen}${mouse_num}.${proname}_combined_2.1D ${savefile}${filen}${mouse_num}.ave_motout.1D
+
+cd ${savefile}
+rm t_formean_data+orig.*
+rm t_formean_motout.1D
+3dcopy formean_data t_formean_data
+cp formean_motout.1D t_formean_motout.1D
+
+rm formean_data+orig.*
+rm formean_motout.1D
+3dcalc -a ${filen}${mouse_num}.ave_data+orig -b t_formean_data+orig -expr 'a+b' -prefix formean_data
+1deval -a ${filen}${mouse_num}.ave_motout.1D -b t_formean_motout.1D -expr 'a+b' > formean_motout.1D
+
+
+

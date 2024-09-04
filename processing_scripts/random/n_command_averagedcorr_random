@@ -1,0 +1,48 @@
+#!/bin/bash
+# copy the folder to your place
+# change the dirs in n_mysetting
+# change the setting in n_command
+# save 
+# run the n_command with "sh n_command"
+
+
+#preprocessing for correlation
+
+cd /local_mount/space/yulab/3/users/hike_processed/average_random/
+
+
+type=an200epi
+stim=/local_mount/space/yulab/4/users/Xiaochen/mouse_data/stim/whisker_123.txt
+template_dir=/local_mount/space/yulab/4/users/Xiaochen/AMBMC_template/
+temp=WB.flash.reg+orig
+name=allMice.average.stim_regressonly
+rm -r *.${name}
+rm -r ${name}.results
+afni_proc.py -subj_id ${name}                 \
+-dsets allMice.average+orig.HEAD      \
+-copy_anat ${template_dir}${temp}                       \
+-anat_has_skull no                              \
+-blocks despike volreg mask blur regress        \
+-volreg_post_vr_allin no                       \
+-volreg_pvra_base_index 3             \
+-mask_epi_anat no                               \
+-mask_import 100mask ${template_dir}100maskAMBMC+orig	\
+-mask_apply 100mask				\
+-blur_size 0.3                                  \
+-regress_apply_mask				\
+-regress_stim_times ${stim}                 \
+-regress_stim_labels vis                        \
+-regress_basis 'BLOCK(4,1)'                    \
+-regress_apply_mot_types demean deriv           \
+-regress_run_clustsim no                        \
+-regress_compute_fitts                          \
+-regress_make_ideal_sum sum_ideal.1D            \
+-regress_est_blur_epits                         \
+-regress_est_blur_errts                         \
+-regress_opts_3dD         -GOFORIT 10                            \
+-regress_opts_reml        -GOFORIT    
+tcsh -xef proc.${name} |& tee output.proc.${name}
+
+
+
+

@@ -1,0 +1,85 @@
+#!/bin/bash
+# copy the folder to your place
+# change the dirs in n_mysetting
+# change the setting in n_command
+# save 
+# run the n_command with "sh n_command"
+
+
+#savefile=/local_mount/space/yulab/3/users/hike_processed/average_errts_combine_2_27/
+script_dir=/local_mount/space/yulab/3/users/hike_processed/script/runbyonce/
+#preprocessing for correlation
+#proname=restforave_8s
+
+
+#setting=("04122023" "N1" "13" "12 11 10")
+# date mouse_Num T1_num EPI_num
+#source ${script_dir}D_n_mysetting_reg
+#source ${script_dir}temp_corr_rest
+
+#setting=("04122023" "N2" "29" "26 27 28")
+# date mouse_Num T1_num EPI_num
+#source ${script_dir}D_n_mysetting_reg
+#source ${script_dir}temp_corr_rest
+
+#setting=("04132023" "N1" "27" "24 25 26")
+# date mouse_Num T1_num EPI_num
+#source ${script_dir}D_n_mysetting_reg
+#source ${script_dir}temp_corr_rest
+
+#setting=("04132023" "N2" "38" "37 36 35")
+# date mouse_Num T1_num EPI_num
+#source ${script_dir}D_n_mysetting_reg
+#source ${script_dir}temp_corr_rest
+
+setting=("04202023" "N2" "19" "16 18 17")
+# date mouse_Num T1_num EPI_num
+source ${script_dir}D_n_mysetting_reg
+source ${script_dir}o_procforcorr_regtoChose
+source ${script_dir}D_o_corr_stimall_random
+source ${script_dir}temp_corr_rest
+
+setting=("04212023" "N2" "26" "24 23 25")
+# date mouse_Num T1_num EPI_num
+source ${script_dir}D_n_mysetting_reg
+source ${script_dir}o_procforcorr_regtoChose
+source ${script_dir}D_o_corr_stimall_random
+source ${script_dir}temp_corr_rest
+
+#setting=("04272023" "N1" "26" "23 24 25")
+## date mouse_Num T1_num EPI_num
+#source ${script_dir}D_n_mysetting_reg
+#source ${script_dir}o_procforcorr_regtoChose
+#source ${script_dir}D_o_corr_stimall_random
+#source ${script_dir}temp_corr_rest
+
+setting=("04282023" "N2" "13" "10 11 9")
+# date mouse_Num T1_num EPI_num
+source ${script_dir}D_n_mysetting_reg
+source ${script_dir}o_procforcorr_regtoChose
+source ${script_dir}D_o_corr_stimall_random
+source ${script_dir}temp_corr_rest
+
+
+#correlation for stimulation
+#setting=("07292022" "9" "16" "13 14 15")
+# date mouse_Num T1_num EPI_num
+
+#source ${script_dir}D_o_corr_stim 
+#source ${script_dir}D_o_corr_stimall
+#source ${script_dir}o_corr_stimall_tent &
+#source ${script_dir}o_corr_AM2reg
+
+#correlation for resting state
+#setting=("09122022" "AD02" "23" "21 22 28")
+# date mouse_Num T1_num EPI_num
+#source ${script_dir}n_mysetting
+#source ${script_dir}o_corr_rest
+
+
+
+
+
+
+
+
