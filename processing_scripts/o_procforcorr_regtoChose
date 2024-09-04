@@ -1,0 +1,103 @@
+#!/bin/bash
+# every time change something, please save it!
+#setting
+
+#read the bruker 2dsep to afni +orig.BRIK file types
+#T1 flash
+type=an200anat
+formean=()
+for run in "${T1_num[@]}"
+do 
+source ${script_dir}readParam_T1
+to3d -omri -prefix ${filen}${run}.${type} -session ${pro_dir} -view orig -xFOV ${Fov1}R-L -yFOV ${Fov2}S-I -zFOV ${Fov3}A-P -skip_outliers 3D:0:0:${Msize[0]}:${Msize[1]}:${Nslice}:${raw_dir}${run}/pdata/1/2dseq 
+3dresample -dxyz ${MinRez} ${MinRez} ${MinRez} -prefix ${filen}${run}.${type}.resamp  -input ${filen}${run}.${type}+orig -overwrite
+formean[${#formean[*]}]=${filen}${run}.${type}${recon}+orig
+done
+
+if [ ${#T1_num[@]} = 1 ]; then
+echo copy
+	cp ${filen}${run}.${type}.resamp+orig.BRIK ${filen}${run}.${type}${recon}+orig.BRIK
+	cp ${filen}${run}.${type}.resamp+orig.HEAD ${filen}${run}.${type}${recon}+orig.HEAD
+else
+echo 3dAllineate
+for run in "${T1_num[@]}"
+do
+3dAllineate                                         \
+      -input ${filen}${run}.${type}.resamp+orig \
+      -base  ${filen}${T1_num[0]}.${type}+orig                 \
+      -cost lpa	-source_automask					\
+	  -prefix ${filen}${run}.${type}${recon}+orig
+done
+fi
+3dMean -prefix rm.${filen}flash ${formean[*]}
+rm ${filen}${run}.${type}.resamp+orig.*
+#200EPI+register:apply matrix of meanEPI2anat on EPI2anat
+
+type=an200epi
+
+for run in "${EPI_num[@]}"
+do
+source ${script_dir}readParam_EPI
+reptall=$(expr ${Nslice} \* ${NR})
+to3d -time:zt ${Nslice} ${NR} ${TR} zero -omri -prefix ${filen}${run}.${type}${recon} -session ${pro_dir} -view orig -xFOV ${Fov1}R-L -yFOV ${Fov2}S-I -zFOV ${Fov3}A-P -skip_outliers 3D:0:0:${Msize[0]}:${Msize[1]}:${reptall}:${raw_dir}${run}/pdata/1/2dseq
+3dresample -dxyz ${MinRez} ${MinRez} ${MinRez} -prefix rm.${filen}${run}.${type}.resamp  -input ${filen}${run}.${type}${recon}+orig -overwrite
+3dTstat -mean -prefix rm.${run}.epi_base rm.${filen}${run}.${type}.resamp+orig
+done
+
+
+for run in "${EPI_num[@]}"
+do
+3dAllineate                                         \
+      -input rm.${run}.epi_base+orig \
+      -base  rm.${filen}flash+orig                  \
+      -cost lpa	-source_automask					\
+	  -1Dmatrix_save rm.${run}.epi_base_to_flash.1D \
+	  -prefix rm.${run}.epi_base_reg
+done
+
+
+
+
+if [ ${temp} == "No" ];
+then
+	for run in "${EPI_num[@]}"
+	do
+	3dAllineate -base rm.${filen}flash+orig                 \
+	                -input rm.${filen}${run}.${type}.resamp+orig        \
+        	        -1Dmatrix_apply rm.${run}.epi_base_to_flash.1D \
+        	        -mast_dxyz 0.1  -source_automask                               \
+        	        -prefix rm.${filen}${run}.${type}_reg
+	rm rm.${filen}${run}.${type}.resamp+orig.*
+	
+	3dcopy rm.${filen}${run}.${type}_reg reg.${filen}${run}.${type}_regtotemp
+	done
+	3dcopy rm.${filen}flash reg.${filen}flash 
+else
+	cp ${template_dir}${temp}.* ${pro_dir}
+	cp ${template_dir}${temp_raw}.* ${pro_dir}
+
+	3dAllineate -base ${template_dir}${temp_raw}              \
+                -input rm.${filen}flash+orig  \
+		-autoweight -nmatch 70%	  -cost lpa	\
+                -mast_dxyz 0.1   -source_automask   \
+		-1Dmatrix_save rm.${filen}flash_to_raw.1D \
+                -prefix rm.${filen}flash_to_raw
+
+	3dAllineate -base ${temp}              \
+                -input rm.${filen}flash_to_raw+orig  \
+		-cost lpa	\
+                -mast_dxyz 0.1   -source_automask   \
+		-1Dmatrix_apply ${template_dir}${raw2temp} \
+                -prefix reg.${filen}flash
+	
+	for run in "${EPI_num[@]}"
+	do
+	cat_matvec rm.${run}.epi_base_to_flash.1D rm.${filen}flash_to_raw.1D ${template_dir}${raw2temp}> rm.${run}.base_to_AMBMC.1D
+	3dAllineate -base reg.${filen}flash+orig                 \
+                -input rm.${filen}${run}.${type}.resamp+orig        \
+                -1Dmatrix_apply rm.${run}.base_to_AMBMC.1D \
+                -mast_dxyz 0.1  -source_automask                               \
+                -prefix reg.${filen}${run}.${type}_regtotemp
+	done
+fi
+rm rm.*

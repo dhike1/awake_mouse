@@ -1,0 +1,53 @@
+#!/bin/bash
+
+Msize=$(grep -A 1 ${raw_dir}${run}'/method' -e '##$PVM_Matrix=( 2 )')
+Msize=(${Msize#*)})
+echo Msize0=${Msize[0]} 
+echo Msize1=${Msize[1]} 
+
+Fov=$(grep -A 1 ${raw_dir}${run}'/method' -e '##$PVM_Fov=( 2 )')
+Fov=(${Fov#*)})
+Fov1=$(bc <<<"scale=2;${Fov[0]}/2")
+Fov2=$(bc <<<"scale=2;${Fov[1]}/2")
+echo Fov= ${Fov1} ${Fov2} 
+
+Nslice=$(grep -A 1 ${raw_dir}${run}'/method' -e '##$PVM_SPackArrNSlices=( 1 )')
+Nslice=(${Nslice#*)})
+echo slice number=${Nslice}
+Tslice=$(grep ${raw_dir}${run}'/method' -e '##$PVM_SliceThick=')
+Tslice=(${Tslice#*=})
+echo slich thickness=${Tslice}
+
+Fov3=$(bc <<<"scale=2;${Tslice}*${Nslice}/2")
+echo ${Fov3}
+
+
+Rez=$(grep -A 1 ${raw_dir}${run}'/method' -e '##$PVM_SpatResol=( 2 )')
+Rez=(${Rez#*)})
+echo Reselotion=${Rez[0]}
+
+if [ 1 -eq "$(echo "${Rez[0]} < ${Rez[1]}" | bc)" ]
+then
+MinRez=${Rez[0]}
+else
+MinRez=${Rez[1]}
+fi
+
+if [ 1 -eq "$(echo "${Tslice} < ${MinRez}" | bc)" ]
+then
+MinRez=${Tslice}
+fi
+
+echo MinRes=${MinRez}
+
+
+TR=$(grep ${raw_dir}${run}'/method' -e '##$PVM_RepetitionTime=') 
+NS=$(grep ${raw_dir}${run}'/method' -e '##$NSegments=')
+TR=(${TR#*=})
+NS=(${NS#*=})
+TR=$(bc <<<"${TR}*${NS}")
+echo TR=${TR}
+
+NR=$(grep ${raw_dir}${run}'/method' -e '##$PVM_NRepetitions=')
+NR=(${NR#*=})
+echo NR=${NR}

@@ -1,0 +1,340 @@
+#!/bin/bash
+# copy the folder to your place
+# change the dirs in n_mysetting
+# change the setting in n_command
+# save 
+# run the n_command with "sh n_command"
+
+
+savefile=/local_mount/space/yulab/4/users/Xiaochen/Ave/average_all_WT/
+savefile1=/local_mount/space/yulab/4/users/Xiaochen/process_ANOVAnewEach/
+filename=restforave_8s
+proname=restforave_8s
+
+IF='BLOCK(4,1)'
+duration=8s 
+
+setting=("07292022" "9" "16" "13 14 15" "WT")
+source n_mysetting
+#rm -r *
+#source ${script_dir}o_procforcorr_regtoChose
+#source ${script_dir}o_corr_AM1reg
+##3dcopy ${filen}${mouse_num}.pupilall_AM1_scaled.results/stats.${filen}${mouse_num}.pupilall_AM1_scaled ${savefile1}/stats.${filen}${mouse_num}.pupilall_AM1_scaled
+#source ${script_dir}o_corr_AM2reg
+#3dcopy ${filen}${mouse_num}.pupilall_AM2_fit_scaled.results/stats.${filen}${mouse_num}.pupilall_AM2_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.pupilall_AM2_fit_scaled
+#source ${script_dir}o_corr_AM12
+for run in "${EPI_num[@]}"
+do 
+3dcopy ${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled.results/stats.${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled
+3dcopy ${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled.results/stats.${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled
+done
+#source ${script_dir}temp_corr_rest
+#cd ${filen}${mouse_num}.${filename}.results/
+#3dcalc -a censor_${filen}${mouse_num}.${filename}_combined_2.1D'{0..204}' -b errts.${filen}${mouse_num}.${filename}.tproject+orig[0..204] -c censor_${filen}${mouse_num}.${filename}_combined_2.1D'{205..409}' -d errts.${filen}${mouse_num}.${filename}.tproject+orig[205..409] -e censor_${filen}${mouse_num}.${filename}_combined_2.1D'{410..614}' -f errts.${filen}${mouse_num}.${filename}.tproject+orig[410..614] -expr '(a*b+c*d+e*f)' -prefix ${savefile}${filen}${mouse_num}.ave_data -float
+
+#1deval -expr 'a+b+c' -a censor_${filen}${mouse_num}.${filename}_combined_2.1D'{0..204}' -b censor_${filen}${mouse_num}.${filename}_combined_2.1D'{205..409}' -c censor_${filen}${mouse_num}.${filename}_combined_2.1D'{410..614}' > ${savefile}${filen}${mouse_num}.ave_motout.1D
+
+#cd ${savefile}
+#3dcopy ${filen}${mouse_num}.ave_data formean_data
+#cp ${filen}${mouse_num}.ave_motout.1D formean_motout.1D
+
+setting=("08102022" "2" "20" "22 23 24" "WT")
+source ${script_dir}n_mysetting
+#rm -r *
+#source ${script_dir}o_procforcorr_regtoChose
+#source ${script_dir}o_corr_AM1reg
+##3dcopy ${filen}${mouse_num}.pupilall_AM1_scaled.results/stats.${filen}${mouse_num}.pupilall_AM1_scaled ${savefile1}/stats.${filen}${mouse_num}.pupilall_AM1_scaled
+#source ${script_dir}o_corr_AM2reg
+#3dcopy ${filen}${mouse_num}.pupilall_AM2_fit_scaled.results/stats.${filen}${mouse_num}.pupilall_AM2_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.pupilall_AM2_fit_scaled
+#source ${script_dir}o_corr_AM12
+for run in "${EPI_num[@]}"
+do 
+3dcopy ${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled.results/stats.${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled
+3dcopy ${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled.results/stats.${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled
+done
+#source ${script_dir}temp_corr_rest
+#cd ${filen}${mouse_num}.${filename}.results/
+#3dcalc -a censor_${filen}${mouse_num}.${filename}_combined_2.1D'{0..204}' -b errts.${filen}${mouse_num}.${filename}.tproject+orig[0..204] -c censor_${filen}${mouse_num}.${filename}_combined_2.1D'{205..409}' -d errts.${filen}${mouse_num}.${filename}.tproject+orig[205..409] -e censor_${filen}${mouse_num}.${filename}_combined_2.1D'{410..614}' -f errts.${filen}${mouse_num}.${filename}.tproject+orig[410..614] -expr '(a*b+c*d+e*f)' -prefix ${savefile}${filen}${mouse_num}.ave_data -float
+
+#1deval -expr 'a+b+c' -a censor_${filen}${mouse_num}.${filename}_combined_2.1D'{0..204}' -b censor_${filen}${mouse_num}.${filename}_combined_2.1D'{205..409}' -c censor_${filen}${mouse_num}.${filename}_combined_2.1D'{410..614}' > ${savefile}${filen}${mouse_num}.ave_motout.1D
+#cd ${savefile}
+#3dcopy formean_data t_formean_data
+#cp formean_motout.1D t_formean_motout.1D
+
+#rm formean_data+orig.*
+#rm formean_motout.1D
+#3dcalc -a ${filen}${mouse_num}.ave_data+orig -b t_formean_data+orig -expr 'a+b' -prefix formean_data
+#1deval -a ${filen}${mouse_num}.ave_motout.1D -b t_formean_motout.1D -expr 'a+b' > formean_motout.1D
+
+
+
+
+
+setting=("08102022" "4" "35" "32 33 34" "WT")
+source ${script_dir}n_mysetting
+#rm -r *
+#source ${script_dir}o_procforcorr_regtoChose
+#source ${script_dir}o_corr_AM1reg
+#3dcopy ${filen}${mouse_num}.pupilall_AM1_scaled.results/stats.${filen}${mouse_num}.pupilall_AM1_scaled ${savefile1}/stats.${filen}${mouse_num}.pupilall_AM1_scaled
+#source ${script_dir}o_corr_AM2reg
+#3dcopy ${filen}${mouse_num}.pupilall_AM2_fit_scaled.results/stats.${filen}${mouse_num}.pupilall_AM2_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.pupilall_AM2_fit_scaled
+#source ${script_dir}o_corr_AM12
+for run in "${EPI_num[@]}"
+do 
+3dcopy ${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled.results/stats.${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled
+3dcopy ${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled.results/stats.${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled
+done
+#source ${script_dir}temp_corr_rest
+#source ${script_dir}r_beforeave
+
+
+setting=("08112022" "7" "20 19" "16 17 18" "WT")
+source ${script_dir}n_mysetting
+#rm -r *
+#source ${script_dir}o_procforcorr_regtoChose
+#source ${script_dir}o_corr_AM1reg
+#3dcopy ${filen}${mouse_num}.pupilall_AM1_scaled.results/stats.${filen}${mouse_num}.pupilall_AM1_scaled ${savefile1}/stats.${filen}${mouse_num}.pupilall_AM1_scaled
+#source ${script_dir}o_corr_AM2reg
+#3dcopy ${filen}${mouse_num}.pupilall_AM2_fit_scaled.results/stats.${filen}${mouse_num}.pupilall_AM2_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.pupilall_AM2_fit_scaled
+#source ${script_dir}o_corr_AM12
+for run in "${EPI_num[@]}"
+do 
+3dcopy ${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled.results/stats.${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled
+3dcopy ${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled.results/stats.${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled
+done
+#source ${script_dir}temp_corr_rest
+#source ${script_dir}r_beforeave
+
+
+setting=("08112022" "3" "34" "31 33 38" "WT")
+source ${script_dir}n_mysetting
+#rm -r *
+#source ${script_dir}o_procforcorr_regtoChose
+#source ${script_dir}o_corr_AM1reg
+#3dcopy ${filen}${mouse_num}.pupilall_AM1_scaled.results/stats.${filen}${mouse_num}.pupilall_AM1_scaled ${savefile1}/stats.${filen}${mouse_num}.pupilall_AM1_scaled
+#source ${script_dir}o_corr_AM2reg
+#3dcopy ${filen}${mouse_num}.pupilall_AM2_fit_scaled.results/stats.${filen}${mouse_num}.pupilall_AM2_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.pupilall_AM2_fit_scaled
+#source ${script_dir}o_corr_AM12
+for run in "${EPI_num[@]}"
+do 
+3dcopy ${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled.results/stats.${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled
+3dcopy ${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled.results/stats.${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled
+done
+#source ${script_dir}temp_corr_rest
+#source ${script_dir}r_beforeave
+
+
+setting=("08112022" "2" "46" "45 47 48" "WT")
+source ${script_dir}n_mysetting
+#rm -r *
+#source ${script_dir}o_procforcorr_regtoChose
+#source ${script_dir}o_corr_AM1reg
+#3dcopy ${filen}${mouse_num}.pupilall_AM1_scaled.results/stats.${filen}${mouse_num}.pupilall_AM1_scaled ${savefile1}/stats.${filen}${mouse_num}.pupilall_AM1_scaled
+#source ${script_dir}o_corr_AM2reg
+#3dcopy ${filen}${mouse_num}.pupilall_AM2_fit_scaled.results/stats.${filen}${mouse_num}.pupilall_AM2_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.pupilall_AM2_fit_scaled
+#source ${script_dir}o_corr_AM12
+for run in "${EPI_num[@]}"
+do 
+3dcopy ${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled.results/stats.${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled
+3dcopy ${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled.results/stats.${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled
+done
+#source ${script_dir}temp_corr_rest
+#source ${script_dir}r_beforeave
+
+
+
+
+setting=("09272022" "2" "10" "7 8 9" "WT")
+source ${script_dir}n_mysetting
+#rm -r *
+#source ${script_dir}o_procforcorr_regtoChose
+#source ${script_dir}o_corr_AM1reg
+#3dcopy ${filen}${mouse_num}.pupilall_AM1_scaled.results/stats.${filen}${mouse_num}.pupilall_AM1_scaled ${savefile1}/stats.${filen}${mouse_num}.pupilall_AM1_scaled
+#source ${script_dir}o_corr_AM2reg
+#3dcopy ${filen}${mouse_num}.pupilall_AM2_fit_scaled.results/stats.${filen}${mouse_num}.pupilall_AM2_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.pupilall_AM2_fit_scaled
+#source ${script_dir}o_corr_AM12
+for run in "${EPI_num[@]}"
+do 
+3dcopy ${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled.results/stats.${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled
+3dcopy ${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled.results/stats.${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled
+done
+#source ${script_dir}temp_corr_rest
+#source ${script_dir}r_beforeave
+
+
+setting=("09272022" "3" "21" "18 19 20" "WT")
+source ${script_dir}n_mysetting
+#rm -r *
+#source ${script_dir}o_procforcorr_regtoChose
+#source ${script_dir}o_corr_AM1reg
+#3dcopy ${filen}${mouse_num}.pupilall_AM1_scaled.results/stats.${filen}${mouse_num}.pupilall_AM1_scaled ${savefile1}/stats.${filen}${mouse_num}.pupilall_AM1_scaled
+#source ${script_dir}o_corr_AM2reg
+#3dcopy ${filen}${mouse_num}.pupilall_AM2_fit_scaled.results/stats.${filen}${mouse_num}.pupilall_AM2_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.pupilall_AM2_fit_scaled
+#source ${script_dir}o_corr_AM12
+for run in "${EPI_num[@]}"
+do 
+3dcopy ${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled.results/stats.${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled
+3dcopy ${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled.results/stats.${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled
+done
+#source ${script_dir}temp_corr_rest
+#source ${script_dir}r_beforeave
+
+
+
+
+setting=("10252022" "6" "15" "12 13 14" "WT")
+source ${script_dir}n_mysetting
+#rm -r *
+#source ${script_dir}o_procforcorr_regtoChose
+#source ${script_dir}o_corr_AM1reg
+#3dcopy ${filen}${mouse_num}.pupilall_AM1_scaled.results/stats.${filen}${mouse_num}.pupilall_AM1_scaled ${savefile1}/stats.${filen}${mouse_num}.pupilall_AM1_scaled
+#source ${script_dir}o_corr_AM2reg
+#3dcopy ${filen}${mouse_num}.pupilall_AM2_fit_scaled.results/stats.${filen}${mouse_num}.pupilall_AM2_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.pupilall_AM2_fit_scaled
+#source ${script_dir}o_corr_AM12
+for run in "${EPI_num[@]}"
+do 
+3dcopy ${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled.results/stats.${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled
+3dcopy ${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled.results/stats.${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled
+done
+#source ${script_dir}temp_corr_rest
+#source ${script_dir}r_beforeave
+
+setting=("10282022" "s4" "17" "18 19 20" "WT")
+source ${script_dir}n_mysetting
+#rm -r *
+#source ${script_dir}o_procforcorr_regtoChose
+#source ${script_dir}o_corr_AM1reg
+#3dcopy ${filen}${mouse_num}.pupilall_AM1_scaled.results/stats.${filen}${mouse_num}.pupilall_AM1_scaled ${savefile1}/stats.${filen}${mouse_num}.pupilall_AM1_scaled
+#source ${script_dir}o_corr_AM2reg
+#3dcopy ${filen}${mouse_num}.pupilall_AM2_fit_scaled.results/stats.${filen}${mouse_num}.pupilall_AM2_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.pupilall_AM2_fit_scaled
+#source ${script_dir}o_corr_AM12
+for run in "${EPI_num[@]}"
+do 
+3dcopy ${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled.results/stats.${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled
+3dcopy ${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled.results/stats.${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled
+done
+#source ${script_dir}temp_corr_rest
+#source ${script_dir}r_beforeave
+
+setting=("01112023" "7" "22" "19 20 21" "WT")
+source ${script_dir}n_mysetting
+#rm -r *
+#source ${script_dir}o_procforcorr_regtoChose
+#source ${script_dir}o_corr_AM1reg
+#3dcopy ${filen}${mouse_num}.pupilall_AM1_scaled.results/stats.${filen}${mouse_num}.pupilall_AM1_scaled ${savefile1}/stats.${filen}${mouse_num}.pupilall_AM1_scaled
+#source ${script_dir}o_corr_AM2reg
+#3dcopy ${filen}${mouse_num}.pupilall_AM2_fit_scaled.results/stats.${filen}${mouse_num}.pupilall_AM2_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.pupilall_AM2_fit_scaled
+#source ${script_dir}o_corr_AM12
+for run in "${EPI_num[@]}"
+do 
+3dcopy ${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled.results/stats.${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled
+3dcopy ${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled.results/stats.${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled
+done
+#source ${script_dir}temp_corr_rest
+#source ${script_dir}r_beforeave
+
+setting=("03092023" "7" "19" "15 16 17" "WT")
+source ${script_dir}n_mysetting
+#rm -r *
+#source ${script_dir}o_procforcorr_regtoChose
+#source ${script_dir}o_corr_AM1reg
+#3dcopy ${filen}${mouse_num}.pupilall_AM1_scaled.results/stats.${filen}${mouse_num}.pupilall_AM1_scaled ${savefile1}/stats.${filen}${mouse_num}.pupilall_AM1_scaled
+#source ${script_dir}o_corr_AM2reg
+#3dcopy ${filen}${mouse_num}.pupilall_AM2_fit_scaled.results/stats.${filen}${mouse_num}.pupilall_AM2_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.pupilall_AM2_fit_scaled
+#source ${script_dir}o_corr_AM12
+for run in "${EPI_num[@]}"
+do 
+3dcopy ${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled.results/stats.${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled
+3dcopy ${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled.results/stats.${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled
+done
+#source ${script_dir}temp_corr_rest
+#source ${script_dir}r_beforeave
+
+setting=("03092023" "8" "29" "26 27 28" "WT")
+source ${script_dir}n_mysetting
+#rm -r *
+#source ${script_dir}o_procforcorr_regtoChose
+#source ${script_dir}o_corr_AM1reg
+#3dcopy ${filen}${mouse_num}.pupilall_AM1_scaled.results/stats.${filen}${mouse_num}.pupilall_AM1_scaled ${savefile1}/stats.${filen}${mouse_num}.pupilall_AM1_scaled
+#source ${script_dir}o_corr_AM2reg
+#3dcopy ${filen}${mouse_num}.pupilall_AM2_fit_scaled.results/stats.${filen}${mouse_num}.pupilall_AM2_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.pupilall_AM2_fit_scaled
+#source ${script_dir}o_corr_AM12
+for run in "${EPI_num[@]}"
+do 
+3dcopy ${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled.results/stats.${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled
+3dcopy ${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled.results/stats.${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled
+done
+#source ${script_dir}temp_corr_rest
+#source ${script_dir}r_beforeave
+
+setting=("03102023" "8" "36" "33 34 35" "WT")
+source ${script_dir}n_mysetting
+#rm -r *
+#source ${script_dir}o_procforcorr_regtoChose
+#source ${script_dir}o_corr_AM1reg
+#3dcopy ${filen}${mouse_num}.pupilall_AM1_scaled.results/stats.${filen}${mouse_num}.pupilall_AM1_scaled ${savefile1}/stats.${filen}${mouse_num}.pupilall_AM1_scaled
+#source ${script_dir}o_corr_AM2reg
+#3dcopy ${filen}${mouse_num}.pupilall_AM2_fit_scaled.results/stats.${filen}${mouse_num}.pupilall_AM2_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.pupilall_AM2_fit_scaled
+#source ${script_dir}o_corr_AM12
+for run in "${EPI_num[@]}"
+do 
+3dcopy ${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled.results/stats.${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled
+3dcopy ${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled.results/stats.${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled
+done
+#source ${script_dir}temp_corr_rest
+#source ${script_dir}r_beforeave
+
+
+setting=("03302023" "9" "21" "26 27 28" "WT")
+source ${script_dir}n_mysetting
+#rm -r *
+#source ${script_dir}o_procforcorr_regtoChose
+#source ${script_dir}o_corr_AM1reg
+#3dcopy ${filen}${mouse_num}.pupilall_AM1_scaled.results/stats.${filen}${mouse_num}.pupilall_AM1_scaled ${savefile1}/stats.${filen}${mouse_num}.pupilall_AM1_scaled
+#source ${script_dir}o_corr_AM2reg
+#3dcopy ${filen}${mouse_num}.pupilall_AM2_fit_scaled.results/stats.${filen}${mouse_num}.pupilall_AM2_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.pupilall_AM2_fit_scaled
+#source ${script_dir}o_corr_AM12
+for run in "${EPI_num[@]}"
+do 
+3dcopy ${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled.results/stats.${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled
+3dcopy ${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled.results/stats.${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled
+done
+#source ${script_dir}temp_corr_rest
+#source ${script_dir}r_beforeave
+
+
+setting=("03312023" "9" "18" "15 16 17" "WT")
+source ${script_dir}n_mysetting
+#rm -r *
+#source ${script_dir}o_procforcorr_regtoChose
+#source ${script_dir}o_corr_AM1reg
+#3dcopy ${filen}${mouse_num}.pupilall_AM1_scaled.results/stats.${filen}${mouse_num}.pupilall_AM1_scaled ${savefile1}/stats.${filen}${mouse_num}.pupilall_AM1_scaled
+#source ${script_dir}o_corr_AM2reg
+#3dcopy ${filen}${mouse_num}.pupilall_AM2_fit_scaled.results/stats.${filen}${mouse_num}.pupilall_AM2_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.pupilall_AM2_fit_scaled
+#source ${script_dir}o_corr_AM12
+for run in "${EPI_num[@]}"
+do 
+3dcopy ${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled.results/stats.${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.${run}.pupilall_AM2_fit_scaled
+3dcopy ${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled.results/stats.${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled ${savefile1}/stats.${filen}${mouse_num}.${run}.pupilall_AM1_fit_scaled
+done
+#source ${script_dir}temp_corr_rest
+#source ${script_dir}r_beforeave
+
+#3dcalc -a ${savefile}formean_data+orig -b ${savefile}formean_motout.1D -expr 'a/b' -prefix ${savefile}allMice.average.video
+# with out video
+
+
+#cd ${savefile}
+
+#3dcalc -a formean_data+orig -b formean_motout.1D -expr 'a/b' -prefix allMice.average
+
+
+#source ${script_dir}n_command_averagedcorr  #
+
+
+
+
+
+
+
+

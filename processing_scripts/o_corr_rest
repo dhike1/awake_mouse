@@ -1,0 +1,42 @@
+#!/bin/bash
+# every time change something, please save it!
+
+
+
+type=an200epi
+formean=()
+for run in "${EPI_num[@]}"
+do 
+formean=reg.${filen}${run}.${type}_regtotemp+orig.HEAD
+
+
+filename=${date}.${mouse_num}.${run}.rest
+
+rm ${pro_dir}proc.${filename}
+rm ${pro_dir}output.proc.${filename}
+rm -rf ${pro_dir}${filename}.results
+
+afni_proc.py -subj_id ${filename}                  \
+-dsets ${formean}  \
+-copy_anat ${template_dir}${temp}            \
+-anat_has_skull no                              \
+-blocks despike volreg mask blur scale regress        \
+-volreg_post_vr_allin yes                       \
+-volreg_pvra_base_index MIN_OUTLIER             \
+-mask_epi_anat no                               \
+-mask_import 100mask ${template_dir}${mask}	\
+-mask_apply 100mask				\
+-blur_size 0.1                                  \
+-regress_censor_motion 0.5                      \
+-regress_censor_outliers 0.02                  \
+-regress_bandpass 0.01 0.15                     \
+-regress_apply_mot_types demean deriv           \
+-regress_motion_per_run                         \
+-regress_run_clustsim no                        
+
+tcsh -xef proc.${filename} |& tee output.proc.${filename}
+rm ${filename}.results/pb00.*
+rm ${filename}.results/pb01.*
+rm ${filename}.results/pb02.*
+rm ${filename}.results/pb04.*
+done

@@ -1,0 +1,63 @@
+#!/bin/bash
+# every time change something, please save it!
+
+
+type=an200epi
+
+
+formean=()
+for run in "${EPI_num[@]}"
+do 
+formean[${#formean[*]}]=rm.${filen}${run}.${type}_regtotemp+orig.HEAD
+done
+
+if [ $IF ];then
+	echo "$IF"
+else
+	IF='BLOCK(4,1)'
+	duration=8s
+fi
+
+echo ${formean[*]}
+filename=${date}.${mouse_num}.stim_${duration}
+rm proc.${filename}
+rm output.proc.${filename}
+rm ${filename}.results
+
+
+
+
+afni_proc.py -subj_id ${filename}                 \
+-dsets ${formean[*]}      \
+-copy_anat ${template_dir}${anat}                      \
+-anat_has_skull no                              \
+-blocks despike volreg mask blur scale regress        \
+-volreg_base_dset reg.${filen}flash+orig        \
+-volreg_post_vr_allin yes                       \
+-volreg_pvra_base_index MIN_OUTLIER             \
+-mask_epi_anat no                               \
+-mask_import 100mask ${template_dir}${mask}	\
+-mask_apply 100mask				\
+-blur_size 0.3                                  \
+-regress_stim_times ${stimall}                 \
+-regress_apply_mask				\
+-regress_stim_labels vis                        \
+-regress_basis ${IF}                     \
+-regress_censor_motion 0.5                      \
+-regress_censor_outliers 0.02                   \
+-regress_apply_mot_types demean deriv           \
+-regress_motion_per_run                         \
+-regress_run_clustsim no                        \
+-regress_compute_fitts                          \
+-regress_make_ideal_sum sum_ideal.1D            \
+-regress_est_blur_epits                         \
+-regress_est_blur_errts                         \
+-regress_opts_3dD         -GOFORIT 10           \
+-regress_opts_reml        -GOFORIT 10                              
+                                        
+
+tcsh -xef proc.${filename} |& tee output.proc.${filename}
+
+rm ${filename}.results/pb00.*
+rm ${filename}.results/pb01.*
+rm ${filename}.results/pb02.*

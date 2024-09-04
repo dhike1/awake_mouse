@@ -1,0 +1,116 @@
+#!/bin/bash
+# copy the folder to your place
+# change the dirs in n_mysetting
+# change the setting in n_command
+# save 
+# run the n_command with "sh n_command"
+
+
+savefile=/local_mount/space/yulab/4/users/Xiaochen/process_ANOVAUD/
+
+
+
+IF='BLOCK(4,1)'
+duration=8s 
+
+
+setting=("07292022" "9" "16" "13 14 15" "WT")
+source ${script_dir}n_mysetting
+#source ${script_dir}o_procforcorr_regtoChose
+source ${script_dir}o_corr_AM2reg
+3dcopy ${filen}${mouse_num}.pupilall_AM2_UD_scaled.results/stats.${filen}${mouse_num}.pupilall_AM2_UD_scaled ${savefile}/stats.${filen}${mouse_num}.pupilall_AM2_UD_scaled
+
+setting=("07312022" "7" "8" "10 11" "WT")
+source ${script_dir}n_mysetting
+##source ${script_dir}temp_corr_rest
+source ${script_dir}o_corr_AM2reg
+3dcopy ${filen}${mouse_num}.pupilall_AM2_UD_scaled.results/stats.${filen}${mouse_num}.pupilall_AM2_UD_scaled ${savefile}/stats.${filen}${mouse_num}.pupilall_AM2_UD_scaled
+
+setting=("08102022" "2" "20" "22 23 24" "WT")
+source ${script_dir}n_mysetting
+#source ${script_dir}o_procforcorr_regtoChose
+source ${script_dir}o_corr_AM2reg
+3dcopy ${filen}${mouse_num}.pupilall_AM2_UD_scaled.results/stats.${filen}${mouse_num}.pupilall_AM2_UD_scaled ${savefile}/stats.${filen}${mouse_num}.pupilall_AM2_UD_scaled
+
+setting=("08102022" "4" "35" "32 33 34" "WT")
+source ${script_dir}n_mysetting
+source ${script_dir}o_corr_AM2reg
+3dcopy ${filen}${mouse_num}.pupilall_AM2_UD_scaled.results/stats.${filen}${mouse_num}.pupilall_AM2_UD_scaled ${savefile}/stats.${filen}${mouse_num}.pupilall_AM2_UD_scaled
+
+setting=("08112022" "7" "19 20" "16 17 18" "WT")
+source ${script_dir}n_mysetting
+source ${script_dir}o_corr_AM2reg
+3dcopy ${filen}${mouse_num}.pupilall_AM2_UD_scaled.results/stats.${filen}${mouse_num}.pupilall_AM2_UD_scaled ${savefile}/stats.${filen}${mouse_num}.pupilall_AM2_UD_scaled
+
+setting=("08112022" "3" "34" "31 33 38" "WT")
+source ${script_dir}n_mysetting
+source ${script_dir}o_corr_AM2reg
+3dcopy ${filen}${mouse_num}.pupilall_AM2_UD_scaled.results/stats.${filen}${mouse_num}.pupilall_AM2_UD_scaled ${savefile}/stats.${filen}${mouse_num}.pupilall_AM2_UD_scaled
+
+setting=("08112022" "2" "46" "45 47 48" "WT")
+source ${script_dir}n_mysetting
+source ${script_dir}o_corr_AM2reg
+3dcopy ${filen}${mouse_num}.pupilall_AM2_UD_scaled.results/stats.${filen}${mouse_num}.pupilall_AM2_UD_scaled ${savefile}/stats.${filen}${mouse_num}.pupilall_AM2_UD_scaled
+
+
+setting=("09272022" "2" "10" "7 8 9" "WT")
+source ${script_dir}n_mysetting
+source ${script_dir}o_corr_AM2reg
+3dcopy ${filen}${mouse_num}.pupilall_AM2_UD_scaled.results/stats.${filen}${mouse_num}.pupilall_AM2_UD_scaled ${savefile}/stats.${filen}${mouse_num}.pupilall_AM2_UD_scaled
+
+setting=("09272022" "3" "21" "18 19 20" "WT")
+source ${script_dir}n_mysetting
+source ${script_dir}o_corr_AM2reg
+3dcopy ${filen}${mouse_num}.pupilall_AM2_UD_scaled.results/stats.${filen}${mouse_num}.pupilall_AM2_UD_scaled ${savefile}/stats.${filen}${mouse_num}.pupilall_AM2_UD_scaled
+
+setting=("10032022" "3" "26" "24 25" "WT")
+source ${script_dir}n_mysetting
+source ${script_dir}o_corr_AM2reg
+3dcopy ${filen}${mouse_num}.pupilall_AM2_UD_scaled.results/stats.${filen}${mouse_num}.pupilall_AM2_UD_scaled ${savefile}/stats.${filen}${mouse_num}.pupilall_AM2_UD_scaled
+
+setting=("10252022" "6" "15" "12 13 14" "WT")
+source ${script_dir}n_mysetting
+source ${script_dir}o_corr_AM2reg
+3dcopy ${filen}${mouse_num}.pupilall_AM2_UD_scaled.results/stats.${filen}${mouse_num}.pupilall_AM2_UD_scaled ${savefile}/stats.${filen}${mouse_num}.pupilall_AM2_UD_scaled
+
+setting=("10282022" "s4" "17" "18 19 20" "WT")
+source ${script_dir}n_mysetting
+source ${script_dir}o_corr_AM2reg
+3dcopy ${filen}${mouse_num}.pupilall_AM2_UD_scaled.results/stats.${filen}${mouse_num}.pupilall_AM2_UD_scaled ${savefile}/stats.${filen}${mouse_num}.pupilall_AM2_UD_scaled
+
+
+setting=("01112023" "7" "22" "19 20 21" "WT")
+source ${script_dir}n_mysetting
+source ${script_dir}o_corr_AM2reg
+3dcopy ${filen}${mouse_num}.pupilall_AM2_UD_scaled.results/stats.${filen}${mouse_num}.pupilall_AM2_UD_scaled ${savefile}/stats.${filen}${mouse_num}.pupilall_AM2_UD_scaled
+
+setting=("01252023" "12" "13 12" "10 15 19" "WT")
+source ${script_dir}n_mysetting
+source ${script_dir}o_corr_AM2reg
+3dcopy ${filen}${mouse_num}.pupilall_AM2_UD_scaled.results/stats.${filen}${mouse_num}.pupilall_AM2_UD_scaled ${savefile}/stats.${filen}${mouse_num}.pupilall_AM2_UD_scaled
+
+setting=("01252023" "13" "29" "30 31" "WT")
+source ${script_dir}n_mysetting
+source ${script_dir}o_corr_AM2reg
+3dcopy ${filen}${mouse_num}.pupilall_AM2_UD_scaled.results/stats.${filen}${mouse_num}.pupilall_AM2_UD_scaled ${savefile}/stats.${filen}${mouse_num}.pupilall_AM2_UD_scaled
+
+setting=("03092023" "7" "19" "15 16 17" "WT")
+source ${script_dir}n_mysetting
+source ${script_dir}o_corr_AM2reg
+3dcopy ${filen}${mouse_num}.pupilall_AM2_UD_scaled.results/stats.${filen}${mouse_num}.pupilall_AM2_UD_scaled ${savefile}/stats.${filen}${mouse_num}.pupilall_AM2_UD_scaled
+
+setting=("03092023" "8" "29" "26 27 28" "WT")
+source ${script_dir}n_mysetting
+source ${script_dir}o_corr_AM2reg
+3dcopy ${filen}${mouse_num}.pupilall_AM2_UD_scaled.results/stats.${filen}${mouse_num}.pupilall_AM2_UD_scaled ${savefile}/stats.${filen}${mouse_num}.pupilall_AM2_UD_scaled
+
+setting=("03102023" "8" "36" "33 34 35" "WT")
+source ${script_dir}n_mysetting
+source ${script_dir}o_procforcorr_regtoChose
+source ${script_dir}o_corr_AM2reg
+3dcopy ${filen}${mouse_num}.pupilall_AM2_UD_scaled.results/stats.${filen}${mouse_num}.pupilall_AM2_UD_scaled ${savefile}/stats.${filen}${mouse_num}.pupilall_AM2_UD_scaled
+
+
+
+
+

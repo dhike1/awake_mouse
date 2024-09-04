@@ -1,0 +1,50 @@
+#!/bin/bash
+# copy the folder to your place
+# change the dirs in n_mysetting
+# change the setting in n_command
+# save 
+# run the n_command with "sh n_command"
+
+if [ ${#EPI_num[@]} = 3 ]; then
+cd ${filen}${mouse_num}.${proname}.results/
+3dcalc -a censor_${filen}${mouse_num}.${proname}_combined_2.1D'{0..204}' -b errts.${filen}${mouse_num}.${proname}.tproject+orig[0..204] -c censor_${filen}${mouse_num}.${proname}_combined_2.1D'{205..409}' -d errts.${filen}${mouse_num}.${proname}.tproject+orig[205..409] -e censor_${filen}${mouse_num}.${proname}_combined_2.1D'{410..614}' -f errts.${filen}${mouse_num}.${proname}.tproject+orig[410..614] -expr '(a*b+c*d+e*f)' -prefix ${savefile}${filen}${mouse_num}.ave_data -float
+
+1deval -expr 'a+b+c' -a censor_${filen}${mouse_num}.${proname}_combined_2.1D'{0..204}' -b censor_${filen}${mouse_num}.${proname}_combined_2.1D'{205..409}' -c censor_${filen}${mouse_num}.${proname}_combined_2.1D'{410..614}' > ${savefile}${filen}${mouse_num}.ave_motout.1D
+
+elif [ ${#EPI_num[@]} = 2 ]; then
+cd ${filen}${mouse_num}.${proname}.results/
+3dcalc -a censor_${filen}${mouse_num}.${proname}_combined_2.1D'{0..204}' -b errts.${filen}${mouse_num}.${proname}.tproject+orig[0..204] -c censor_${filen}${mouse_num}.${proname}_combined_2.1D'{205..409}' -d errts.${filen}${mouse_num}.${proname}.tproject+orig[205..409] -expr '(a*b+c*d)' -prefix ${savefile}${filen}${mouse_num}.ave_data -float
+
+1deval -expr 'a+b' -a censor_${filen}${mouse_num}.${proname}_combined_2.1D'{0..204}' -b censor_${filen}${mouse_num}.${proname}_combined_2.1D'{205..409}' > ${savefile}${filen}${mouse_num}.ave_motout.1D
+
+
+elif [ ${#EPI_num[@]} = 1 ]; then
+cd ${filen}${mouse_num}.${proname}.results/
+3dcalc -a censor_${filen}${mouse_num}.${proname}_combined_2.1D'{0..204}' -b errts.${filen}${mouse_num}.${proname}.tproject+orig[0..204] -expr '(a*b)' -prefix ${savefile}${filen}${mouse_num}.ave_data -float
+
+cp censor_${filen}${mouse_num}.${proname}_combined_2.1D ${savefile}${filen}${mouse_num}.ave_motout.1D
+
+
+elif [ ${#EPI_num[@]} = 4 ]; then
+cd ${filen}${mouse_num}.${proname}.results/
+3dcalc -a censor_${filen}${mouse_num}.${proname}_combined_2.1D'{0..204}' -b errts.${filen}${mouse_num}.${proname}.tproject+orig[0..204] -c censor_${filen}${mouse_num}.${proname}_combined_2.1D'{205..409}' -d errts.${filen}${mouse_num}.${proname}.tproject+orig[205..409] -e censor_${filen}${mouse_num}.${proname}_combined_2.1D'{410..614}' -f errts.${filen}${mouse_num}.${proname}.tproject+orig[410..614] -g censor_${filen}${mouse_num}.${proname}_combined_2.1D'{615..819}' -h errts.${filen}${mouse_num}.${proname}.tproject+orig[615..819] -expr '(a*b+c*d+e*f+g*h)' -prefix ${savefile}${filen}${mouse_num}.ave_data -float
+
+1deval -expr 'a+b+c+d' -a censor_${filen}${mouse_num}.${proname}_combined_2.1D'{0..204}' -b censor_${filen}${mouse_num}.${proname}_combined_2.1D'{205..409}' -c censor_${filen}${mouse_num}.${proname}_combined_2.1D'{410..614}' -d censor_${filen}${mouse_num}.${proname}_combined_2.1D'{615..819}' > ${savefile}${filen}${mouse_num}.ave_motout.1D
+
+else 
+echo "Need to change the r_beforeave file"
+fi
+
+cd ${savefile}
+rm t_formean_data+orig.*
+rm t_formean_motout.1D
+3dcopy formean_data t_formean_data
+cp formean_motout.1D t_formean_motout.1D
+
+rm formean_data+orig.*
+rm formean_motout.1D
+3dcalc -a ${filen}${mouse_num}.ave_data+orig -b t_formean_data+orig -expr 'a+b' -prefix formean_data
+1deval -a ${filen}${mouse_num}.ave_motout.1D -b t_formean_motout.1D -expr 'a+b' > formean_motout.1D
+
+
+

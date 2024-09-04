@@ -1,0 +1,55 @@
+#!/bin/bash
+# every time change something, please save it!
+
+type=an200epi
+
+
+
+
+
+sname=${filen}${mouse_num}.pupilall_AM2_fit_scaled
+
+rm -r ${sname}.results
+rm output.proc.${sname}
+rm proc.${sname}
+
+
+formean=()
+for run in "${EPI_num[@]}"
+do 
+formean[${#formean[*]}]=reg.${filen}${run}.${type}_regtotemp+orig.HEAD
+done
+
+afni_proc.py -subj_id ${sname}                   \
+-dsets ${formean[*]}  \
+-copy_anat reg.${filen}flash+orig           \
+-anat_has_skull no                              \
+-blocks despike volreg mask blur scale regress        \
+-volreg_base_dset reg.${filen}flash+orig         \
+-volreg_post_vr_allin yes                       \
+-volreg_pvra_base_index MIN_OUTLIER             \
+-mask_epi_anat no                               \
+-blur_size 0.3                                  \
+-mask_import 100mask ${template_dir}100maskAMBMC+orig	\
+-mask_apply 100mask				\
+-regress_stim_times ${pupil_dir}pupil_AM2fit.${mouse_num}.${filen}txt \
+-regress_stim_types AM2 \
+-regress_stim_labels Pupil_all \
+-regress_apply_mask	\
+-regress_basis 'BLOCK(4,1)'                     \
+-regress_censor_motion 0.5                      \
+-regress_censor_outliers 0.02                   \
+-regress_apply_mot_types demean deriv           \
+-regress_motion_per_run                         \
+-regress_run_clustsim no                        \
+-regress_make_ideal_sum sum_ideal.1D            		
+
+tcsh -xef proc.${sname}  |& tee output.proc.${sname} 
+
+rm ${sname}.results/pb0*
+rm ${sname}.results/errts*
+rm ${sname}.results/fitts*
+
+#-regress_stim_times ${stimall} ${pupil_dir}pupil_U.${filen}txt ${pupil_dir}pupil_L.${filen}txt ${pupil_dir}pupil_M_CORR.${filen}txt ${pupil_dir}pupil_S_TIME.${filen}txt ${pupil_dir}pupil_T4-T2.${filen}txt ${pupil_dir}pupil_speed_c.${filen}txt ${pupil_dir}pupil_speed_d.${filen}txt \
+#-regress_stim_types times AM2 AM2 AM2 AM2 AM2 AM2 AM2 \
+#-regress_stim_labels vis pupil_U pupil_L pupil_M_C pupil_S_T pupil_T4-T2 pupil_speed_c pupil_speed_d \

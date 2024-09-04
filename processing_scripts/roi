@@ -1,0 +1,14 @@
+    3dmaskave -mask /local_mount/space/yulab/4/users/Xiaochen/AMBMC_template/Allen_label_AMBMC+orig<516 552 553> -quiet all_runs.allMice.average.stim_reg+orig > LGN_4s.1D
+
+3dmaskave -mask /local_mount/space/yulab/4/users/Xiaochen/AMBMC_template/Allen_label_AMBMC+orig -quiet -mrange 124 166 all_runs.allMice.average.stim_reg+orig > VC_4s.1D
+
+
+3dmaskave -mask /local_mount/space/yulab/4/users/Xiaochen/AMBMC_template/Allen_label_AMBMC_R+orig -quiet -mrange 32 38 all_runs.allMice.average.stim_reg+orig > BC_8s_R.1D
+
+
+
+
+
+
+
+

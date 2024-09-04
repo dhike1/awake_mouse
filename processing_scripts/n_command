@@ -1,0 +1,113 @@
+#!/bin/bash
+# copy the folder to your place
+# change the dirs in n_mysetting
+# change the setting in n_command
+# save 
+# run the n_command with "sh n_command"
+
+
+#preprocessing for correlation
+setting=("12062023" "K1CBV" "28" "22 23 24 25 26 27")
+           #date mouse_Num T1_num EPI_num
+source n_mysetting
+#temp="No" 
+mask=200maskAMBMC+orig
+source ${script_dir}o_procforcorr_regtoChose200
+
+setting=("12062023" "K1CBV" "28" "23")
+           #date mouse_Num T1_num EPI_num
+source ${script_dir}n_mysetting
+mask=200maskAMBMC+orig
+IF='BLOCK(0.1,1)' #set ideal function
+duration=2s
+stimdir=/local_mount/space/yulab/4/users/Xiaochen/mouse_data/stim/
+stim=(${stimdir}stim16-1.txt ${stimdir}stim6.5-1.txt)
+labels=(pupil whisker)
+source ${script_dir}o_corr_stim200 
+
+#IF='TENT(0,15,16)' #set ideal function
+#duration=TENT
+#stim=(${stimdir}stim16.txt)
+#labels=(pupil)
+#source ${script_dir}o_corr_stim200 
+
+setting=("12062023" "K1CBV" "28" "24")
+           #date mouse_Num T1_num EPI_num
+source ${script_dir}n_mysetting
+mask=200maskAMBMC+orig
+#source ${script_dir}temp_corr_rest_each200 # regress out the noise
+#source ${script_dir}o_corr_rest #with bandpass
+IF='BLOCK(0.1,1)' #set ideal function
+duration=2s
+stimdir=/local_mount/space/yulab/4/users/Xiaochen/mouse_data/stim/
+stim=(${stimdir}stim16-1.txt ${stimdir}stim6.5-1.txt)
+labels=(whisker pupil)
+source ${script_dir}o_corr_stim200 
+
+#IF='TENT(0,15,16)' #set ideal function
+#duration=TENT
+#stim=(${stimdir}stim16.txt)
+#labels=(whisker)
+#source ${script_dir}o_corr_stim200 
+
+
+setting=("12062023" "K1CBV" "28" "25")
+           #date mouse_Num T1_num EPI_num
+source ${script_dir}n_mysetting
+mask=200maskAMBMC+orig
+#source ${script_dir}temp_corr_rest_each200 # regress out the noise
+#source ${script_dir}o_corr_rest #with bandpass
+IF='BLOCK(0.1,1)' #set ideal function
+duration=2s
+stimdir=/local_mount/space/yulab/4/users/Xiaochen/mouse_data/stim/
+stim=(${stimdir}stim15-1.txt ${stimdir}stim6-1.txt)
+labels=(pupil whisker)
+source ${script_dir}o_corr_stim200 
+
+#IF='TENT(0,14,15)' #set ideal function
+#duration=TENT
+#stim=(${stimdir}stim15.txt)
+#labels=(pupil)
+#source ${script_dir}o_corr_stim200 
+
+
+setting=("12062023" "K1CBV" "28" "26")
+           #date mouse_Num T1_num EPI_num
+source ${script_dir}n_mysetting
+mask=200maskAMBMC+orig
+#source ${script_dir}temp_corr_rest_each200 # regress out the noise
+#source ${script_dir}o_corr_rest #with bandpass
+IF='BLOCK(0.1,1)' #set ideal function
+duration=2s
+stimdir=/local_mount/space/yulab/4/users/Xiaochen/mouse_data/stim/
+stim=(${stimdir}stim15-1.txt ${stimdir}stim6-1.txt)
+labels=(whisker pupil)
+source ${script_dir}o_corr_stim200 
+
+#IF='TENT(0,14,15)' #set ideal function
+#duration=TENT
+#stim=(${stimdir}stim15.txt)
+#labels=(whisker)
+#source ${script_dir}o_corr_stim200 
+
+setting=("12062023" "K1CBV" "28" "22 23 24 25 26 27")
+           #date mouse_Num T1_num EPI_num
+source ${script_dir}n_mysetting
+mask=200maskAMBMC+orig
+source ${script_dir}temp_corr_rest_each200 # regress out the noise
+
+
+
+
+#source ${script_dir}o_corr_stimall_BLOCK
+#source ${script_dir}o_corr_stimall_tent
+#source ${script_dir}o_corr_AM2reg
+#source ${script_dir}o_corr_AM1Sreg
+#source ${script_dir}o_corr_file
+
+
+
+
+
+
+

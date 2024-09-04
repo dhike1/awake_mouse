@@ -1,0 +1,60 @@
+#!/bin/bash
+# every time change something, please save it!
+#setting
+
+name=Xiaochen #your file name in yulab/4/users
+raw_name=Xiaochen #your file name in yulab/1/users
+
+# get parameters
+date=${setting[0]} #your data file in yulab/1/users/ral_name/
+T1_num=(${setting[2]})
+EPI_num=(${setting[3]})
+mouse_num=${setting[1]}
+
+#please prepare these files before you run this file
+pro_folder=/local_mount/space/yulab/4/users/${name}/mouse_data
+template_dir=/local_mount/space/yulab/4/users/Xiaochen/AMBMC_template/ #use mine or change to your own folder with template file
+pupil_dir=/local_mount/space/yulab/4/users/Xiaochen/mouse_data/pupil_file/ #use mine or change to your own folder with stim file
+
+
+#set template
+#temp="No"
+temp=WB.flash.reg+orig #0810112022.flash_reg+orig 
+temp_raw=04202023.20.an200anat.resamp+orig #rm.0810112022.flash+orig
+anat=ambmc_ori_100+orig #rm.0810112022.flash+orig
+raw2temp=WB_to_AMBMC.1D
+mask=100maskAMBMC+orig
+
+#make processing dir
+cd ${pro_folder}
+mkdir $date
+cd $date
+iso=200_proc
+mkdir $iso
+cd $iso
+mkdir $mouse_num
+cd $mouse_num
+
+#make stimulati time file for multi trials
+stim=/local_mount/space/yulab/4/users/Xiaochen/mouse_data/stim/vis_stim_BLOCK.txt
+var=$(cat ${stim})
+echo ${var} > stimall.txt
+i=2
+while [ ${i} -le ${#EPI_num[@]} ]
+do
+echo ${var} >> stimall.txt
+((i++))
+done
+stimall=${pro_dir}stimall.txt
+
+
+#set dirs
+raw_dir=/local_mount/space/yulab/1/users/${raw_name}/${date}/
+pro_dir=${pro_folder}/${date}/${iso}/${mouse_num}/
+script_dir=/local_mount/space/yulab/4/users/Xiaochen/script/2023/ #change to your own folder with scripts
+
+cd ${pro_dir}
+filen=${date}.
+recon=.1
+
+echo "mysetting done"
